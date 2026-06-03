@@ -15,6 +15,14 @@
         padding: 5px;
       }
 
+      .description {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .title {
+        margin-right: auto;
+      }
       .line {
         display: flex;
         width: 100%;
@@ -29,13 +37,15 @@
         flex: 1;
       }
     </style>
-    <div class="container">
-      <h1>Etch-A-Sketch</h1>
-      <p class="description">
-        <span>16 x 16 grid</span>
+    <section class="container">
+      <div class="description">
+        <h1 class="title">Etch-A-Sketch</h1>
+        <p class="grid-size"><span id="grid-size">16 x 16 </span> grid</p>
         <button id="change-grid">Change grid size</button>
-      </p>
-    </div>
+      </div>
+
+      <div class="grid"></div>
+    </section>
 
     <script>
       createSquareDivs(10);
@@ -44,13 +54,19 @@
         square.addEventListener("mouseover", changeColorOnMouseOver);
       });
 
+      document
+        .querySelector("#change-grid")
+        .addEventListener("click", changeGridSize);
+
       function createSquareDivs(gridSize = 16) {
-        const container = document.querySelector(".container");
+        const grid = document.querySelector(".grid");
+
+        grid.replaceChildren();
 
         for (let line = 1; line <= gridSize; line++) {
           const lineDiv = document.createElement("div");
           lineDiv.classList.add("line");
-          container.appendChild(lineDiv);
+          grid.appendChild(lineDiv);
           for (let square = 1; square <= gridSize; square++) {
             const squareDiv = document.createElement("div");
             squareDiv.classList.add("square");
@@ -61,6 +77,12 @@
 
       function changeColorOnMouseOver(event) {
         event.target.style.backgroundColor = "cyan";
+      }
+
+      function changeGridSize() {
+        const gridSize = +prompt("Enter the grid size");
+        const container = document.querySelector(".container");
+        createSquareDivs(gridSize);
       }
     </script>
   </body>
