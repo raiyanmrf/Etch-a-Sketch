@@ -45,7 +45,7 @@
         max-width: 1000px;
       }
       .square {
-        border: 0.5px solid rgb(158, 158, 158);
+        border: 0.5px solid rgb(59, 59, 59);
 
         aspect-ratio: 1;
       }
@@ -86,7 +86,12 @@
       }
 
       function changeColorOnMouseOver(event) {
-        event.target.style.backgroundColor = "cyan";
+        let randomColor =
+          "#" +
+          Math.floor(Math.random() * 16777215)
+            .toString(16)
+            .padStart(6, "0");
+        event.target.style.backgroundColor = randomColor;
       }
 
       function changeGridSize() {
@@ -100,6 +105,9 @@
           alert("Please enter a number less than 100");
           return;
         }
+
+        const gridSizeSpan = document.querySelector("#grid-size");
+        gridSizeSpan.textContent = `${gridSize} x ${gridSize}`;
 
         const container = document.querySelector(".container");
         createSquareDivs(gridSize);
