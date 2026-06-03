@@ -29,6 +29,12 @@
     <div class="container"></div>
 
     <script>
+      createSquareDivs(10);
+
+      document.querySelectorAll(".square").forEach((square) => {
+        square.addEventListener("mouseover", changeColorOnMouseOver);
+      });
+
       function createSquareDivs(gridSize = 16) {
         const container = document.querySelector(".container");
 
@@ -44,7 +50,9 @@
         }
       }
 
-      createSquareDivs(10);
+      function changeColorOnMouseOver(event) {
+        event.target.style.backgroundColor = "cyan";
+      }
     </script>
   </body>
 </html>
