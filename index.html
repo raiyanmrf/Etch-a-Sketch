@@ -21,18 +21,21 @@
         display: flex;
         flex-flow: row wrap;
         align-items: center;
+        justify-content: center;
         gap: 10px;
       }
       .title {
-        margin-right: auto;
+        margin-inline: auto;
+        text-align: center;
       }
 
       .grid {
-        height: 90vh;
+        height: 85vh;
         width: 100%;
         display: flex;
 
         flex-direction: column;
+        place-items: center;
         overflow: auto;
       }
 
@@ -47,8 +50,8 @@
       }
     </style>
     <section class="container">
+      <h1 class="title">Etch-A-Sketch</h1>
       <div class="description">
-        <h1 class="title">Etch-A-Sketch</h1>
         <p class="grid-size"><span id="grid-size">16 x 16 </span> grid</p>
         <button id="change-grid">Change grid size</button>
       </div>
