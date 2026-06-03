@@ -79,6 +79,7 @@
           for (let square = 1; square <= gridSize; square++) {
             const squareDiv = document.createElement("div");
             squareDiv.classList.add("square");
+            squareDiv.setAttribute("data-hover-count", 0);
             lineDiv.appendChild(squareDiv);
             squareDiv.addEventListener("mouseover", changeColorOnMouseOver);
           }
@@ -86,12 +87,20 @@
       }
 
       function changeColorOnMouseOver(event) {
-        let randomColor =
-          "#" +
-          Math.floor(Math.random() * 16777215)
-            .toString(16)
-            .padStart(6, "0");
+        let hoverCount = +event.target.getAttribute("data-hover-count");
+        hoverCount++;
+        event.target.setAttribute("data-hover-count", hoverCount);
+        let randomColor = getRandomRGB(hoverCount);
         event.target.style.backgroundColor = randomColor;
+      }
+
+      function getRandomRGB(hoverCount) {
+        const r = Math.floor(Math.random() * 256);
+        const g = Math.floor(Math.random() * 256);
+        const b = Math.floor(Math.random() * 256);
+        const opacity = hoverCount == 10 ? 100 : hoverCount * 10;
+
+        return `rgb(${r} ${g} ${b} / ${opacity}%)`;
       }
 
       function changeGridSize() {
