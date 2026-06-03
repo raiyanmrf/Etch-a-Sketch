@@ -42,6 +42,7 @@
       .line {
         display: flex;
         flex: 1;
+        max-width: 1000px;
       }
       .square {
         border: 0.5px solid rgb(158, 158, 158);
@@ -52,7 +53,7 @@
     <section class="container">
       <h1 class="title">Etch-A-Sketch</h1>
       <div class="description">
-        <p class="grid-size"><span id="grid-size">16 x 16 </span> grid</p>
+        <p class="grid-size"><span id="grid-size">16 x 16</span> grid</p>
         <button id="change-grid">Change grid size</button>
       </div>
 
@@ -90,6 +91,16 @@
 
       function changeGridSize() {
         const gridSize = +prompt("Enter the grid size");
+        if (!Number.isInteger(gridSize) || gridSize < 1) {
+          alert("Please enter a valid number");
+          return;
+        }
+
+        if (gridSize > 100) {
+          alert("Please enter a number less than 100");
+          return;
+        }
+
         const container = document.querySelector(".container");
         createSquareDivs(gridSize);
       }
