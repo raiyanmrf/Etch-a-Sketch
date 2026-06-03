@@ -9,32 +9,41 @@
     <style>
       * {
         box-sizing: border-box;
+        margin: 0;
       }
       .container {
         margin: 0 auto;
         padding: 5px;
+        width: 100%;
       }
 
       .description {
         display: flex;
+        flex-flow: row wrap;
         align-items: center;
         gap: 10px;
       }
       .title {
         margin-right: auto;
       }
+
+      .grid {
+        height: 90vh;
+        width: 100%;
+        display: flex;
+
+        flex-direction: column;
+        overflow: auto;
+      }
+
       .line {
         display: flex;
-        width: 100%;
-        gap: 1px;
-        margin-block: 1px;
+        flex: 1;
       }
       .square {
-        border: 1px solid black;
+        border: 0.5px solid rgb(158, 158, 158);
 
         aspect-ratio: 1;
-
-        flex: 1;
       }
     </style>
     <section class="container">
@@ -49,10 +58,6 @@
 
     <script>
       createSquareDivs(10);
-
-      document.querySelectorAll(".square").forEach((square) => {
-        square.addEventListener("mouseover", changeColorOnMouseOver);
-      });
 
       document
         .querySelector("#change-grid")
@@ -71,6 +76,7 @@
             const squareDiv = document.createElement("div");
             squareDiv.classList.add("square");
             lineDiv.appendChild(squareDiv);
+            squareDiv.addEventListener("mouseover", changeColorOnMouseOver);
           }
         }
       }
