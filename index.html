@@ -9,7 +9,10 @@
     <style>
       * {
         box-sizing: border-box;
-        margin: 0;
+      }
+      .container {
+        margin: 0 auto;
+        padding: 5px;
       }
 
       .line {
@@ -26,7 +29,13 @@
         flex: 1;
       }
     </style>
-    <div class="container"></div>
+    <div class="container">
+      <h1>Etch-A-Sketch</h1>
+      <p class="description">
+        <span>16 x 16 grid</span>
+        <button id="change-grid">Change grid size</button>
+      </p>
+    </div>
 
     <script>
       createSquareDivs(10);
