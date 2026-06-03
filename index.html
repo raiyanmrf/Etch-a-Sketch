@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+      }
+
+      .line {
+        display: flex;
+        width: 100%;
+        gap: 1px;
+        margin-block: 1px;
+      }
+      .square {
+        border: 1px solid black;
+
+        aspect-ratio: 1;
+
+        flex: 1;
+      }
+    </style>
+    <div class="container"></div>
+
+    <script>
+      function createSquareDivs(gridSize = 16) {
+        const container = document.querySelector(".container");
+
+        for (let line = 1; line <= gridSize; line++) {
+          const lineDiv = document.createElement("div");
+          lineDiv.classList.add("line");
+          container.appendChild(lineDiv);
+          for (let square = 1; square <= gridSize; square++) {
+            const squareDiv = document.createElement("div");
+            squareDiv.classList.add("square");
+            lineDiv.appendChild(squareDiv);
+          }
+        }
+      }
+
+      createSquareDivs(10);
+    </script>
+  </body>
+</html>
