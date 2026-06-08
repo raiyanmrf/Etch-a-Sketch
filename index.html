@@ -1,126 +1,132 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <style>
-      * {
-        box-sizing: border-box;
-        margin: 0;
-      }
-      .container {
-        margin: 0 auto;
-        padding: 5px;
-        width: 100%;
-      }
 
-      .description {
-        display: flex;
-        flex-flow: row wrap;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-      }
-      .title {
-        margin-inline: auto;
-        text-align: center;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+</head>
 
-      .grid {
-        height: 85vh;
-        width: 100%;
-        display: flex;
+<body>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+    }
 
-        flex-direction: column;
-        place-items: center;
-        overflow: auto;
-      }
+    .container {
+      margin: 0 auto;
+      padding: 5px;
+      width: 100%;
+    }
 
-      .line {
-        display: flex;
-        flex: 1;
-        max-width: 1000px;
-      }
-      .square {
-        border: 0.5px solid rgb(59, 59, 59);
+    .description {
+      display: flex;
+      flex-flow: row wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
 
-        aspect-ratio: 1;
-      }
-    </style>
-    <section class="container">
-      <h1 class="title">Etch-A-Sketch</h1>
-      <div class="description">
-        <p class="grid-size"><span id="grid-size">16 x 16</span> grid</p>
-        <button id="change-grid">Change grid size</button>
-      </div>
+    .title {
+      margin-inline: auto;
+      text-align: center;
+    }
 
-      <div class="grid"></div>
-    </section>
+    .grid {
+      height: 85vh;
+      width: 100%;
+      display: flex;
 
-    <script>
-      createSquareDivs(10);
+      flex-direction: column;
+      place-items: center;
+      overflow: auto;
+    }
 
-      document
-        .querySelector("#change-grid")
-        .addEventListener("click", changeGridSize);
+    .line {
+      display: flex;
+      flex: 1;
+      max-width: 1000px;
+    }
 
-      function createSquareDivs(gridSize = 16) {
-        const grid = document.querySelector(".grid");
+    .square {
+      border: 0.5px dotted rgb(59, 59, 59);
 
-        grid.replaceChildren();
+      aspect-ratio: 1;
+    }
+  </style>
+  <section class="container">
+    <h1 class="title">Etch-A-Sketch</h1>
+    <div class="description">
+      <p class="grid-size"><span id="grid-size">16 x 16</span> grid</p>
+      <button id="change-grid">Change grid size</button>
+    </div>
 
-        for (let line = 1; line <= gridSize; line++) {
-          const lineDiv = document.createElement("div");
-          lineDiv.classList.add("line");
-          grid.appendChild(lineDiv);
-          for (let square = 1; square <= gridSize; square++) {
-            const squareDiv = document.createElement("div");
-            squareDiv.classList.add("square");
-            squareDiv.setAttribute("data-hover-count", 0);
-            lineDiv.appendChild(squareDiv);
-            squareDiv.addEventListener("mouseover", changeColorOnMouseOver);
-          }
+    <div class="grid"></div>
+  </section>
+
+  <script>
+    createSquareDivs(10);
+
+    document
+      .querySelector("#change-grid")
+      .addEventListener("click", changeGridSize);
+
+    function createSquareDivs(gridSize = 16) {
+      const grid = document.querySelector(".grid");
+
+      grid.replaceChildren();
+
+      for (let line = 1; line <= gridSize; line++) {
+        const lineDiv = document.createElement("div");
+        lineDiv.classList.add("line");
+        grid.appendChild(lineDiv);
+        for (let square = 1; square <= gridSize; square++) {
+          const squareDiv = document.createElement("div");
+          squareDiv.classList.add("square");
+          squareDiv.setAttribute("data-hover-count", 0);
+          lineDiv.appendChild(squareDiv);
+          squareDiv.addEventListener("mouseover", changeColorOnMouseOver);
         }
       }
+    }
 
-      function changeColorOnMouseOver(event) {
-        let hoverCount = +event.target.getAttribute("data-hover-count");
-        hoverCount++;
-        event.target.setAttribute("data-hover-count", hoverCount);
-        let randomColor = getRandomRGB(hoverCount);
-        event.target.style.backgroundColor = randomColor;
+    function changeColorOnMouseOver(event) {
+      let hoverCount = +event.target.getAttribute("data-hover-count");
+      hoverCount++;
+      event.target.setAttribute("data-hover-count", hoverCount);
+      let randomColor = getRandomRGB(hoverCount);
+      event.target.style.backgroundColor = randomColor;
+    }
+
+    function getRandomRGB(hoverCount) {
+      const r = Math.floor(Math.random() * 256);
+      const g = Math.floor(Math.random() * 256);
+      const b = Math.floor(Math.random() * 256);
+      const opacity = hoverCount == 10 ? 100 : hoverCount * 10;
+
+      return `rgb(${r} ${g} ${b} / ${opacity}%)`;
+    }
+
+    function changeGridSize() {
+      const gridSize = +prompt("Enter the grid size");
+      if (!Number.isInteger(gridSize) || gridSize < 1) {
+        alert("Please enter a valid number");
+        return;
       }
 
-      function getRandomRGB(hoverCount) {
-        const r = Math.floor(Math.random() * 256);
-        const g = Math.floor(Math.random() * 256);
-        const b = Math.floor(Math.random() * 256);
-        const opacity = hoverCount == 10 ? 100 : hoverCount * 10;
-
-        return `rgb(${r} ${g} ${b} / ${opacity}%)`;
+      if (gridSize > 100) {
+        alert("Please enter a number less than 100");
+        return;
       }
 
-      function changeGridSize() {
-        const gridSize = +prompt("Enter the grid size");
-        if (!Number.isInteger(gridSize) || gridSize < 1) {
-          alert("Please enter a valid number");
-          return;
-        }
+      const gridSizeSpan = document.querySelector("#grid-size");
+      gridSizeSpan.textContent = `${gridSize} x ${gridSize}`;
 
-        if (gridSize > 100) {
-          alert("Please enter a number less than 100");
-          return;
-        }
+      const container = document.querySelector(".container");
+      createSquareDivs(gridSize);
+    }
+  </script>
+</body>
 
-        const gridSizeSpan = document.querySelector("#grid-size");
-        gridSizeSpan.textContent = `${gridSize} x ${gridSize}`;
-
-        const container = document.querySelector(".container");
-        createSquareDivs(gridSize);
-      }
-    </script>
-  </body>
 </html>
